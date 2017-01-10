@@ -69,7 +69,8 @@ def get_roidb(imdb_name, rpn_file=None):
 
 def get_solvers(net_name):
     # Faster R-CNN Alternating Optimization
-    n = 'faster_rcnn_alt_opt'
+    #n = 'faster_rcnn_alt_opt'
+    n = 'bvlc_googlenet_fc_layers'
     # Solver for each training stage
     solvers = [[net_name, n, 'stage1_rpn_solver60k80k.pt'],
                [net_name, n, 'stage1_fast_rcnn_solver30k40k.pt'],
@@ -77,8 +78,9 @@ def get_solvers(net_name):
                [net_name, n, 'stage2_fast_rcnn_solver30k40k.pt']]
     solvers = [os.path.join(cfg.MODELS_DIR, *s) for s in solvers]
     # Iterations for each training stage
-    max_iters = [80000, 40000, 80000, 40000]
-    # max_iters = [100, 100, 100, 100]
+    #max_iters = [80000, 40000, 80000, 40000]
+    #max_iters = [100, 100, 100, 100]
+    max_iters = [8000, 4000, 8000, 4000]
     # Test prototxt for the RPN
     rpn_test_prototxt = os.path.join(
         cfg.MODELS_DIR, net_name, n, 'rpn_test.pt')

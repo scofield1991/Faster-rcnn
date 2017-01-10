@@ -11,7 +11,13 @@ __sets = {}
 
 from datasets.pascal_voc import pascal_voc
 from datasets.coco import coco
+from datasets.inria import inria
 import numpy as np
+
+inria_devkit_path = '/home/oleksandr/FasterRCNN/py-faster-rcnn/data/INRIA_Person_devkit'
+for split in ['train', 'test']:
+    name = '{}_{}'.format('inria', split)
+    __sets[name] = (lambda split=split: inria(split, inria_devkit_path))
 
 # Set up voc_<year>_<split> using selective search "fast" mode
 for year in ['2007', '2012']:

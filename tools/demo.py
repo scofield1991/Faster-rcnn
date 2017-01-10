@@ -24,12 +24,14 @@ import scipy.io as sio
 import caffe, os, sys, cv2
 import argparse
 
-CLASSES = ('__background__',
-           'aeroplane', 'bicycle', 'bird', 'boat',
-           'bottle', 'bus', 'car', 'cat', 'chair',
-           'cow', 'diningtable', 'dog', 'horse',
-           'motorbike', 'person', 'pottedplant',
-           'sheep', 'sofa', 'train', 'tvmonitor')
+#CLASSES = ('__background__',
+#           'aeroplane', 'bicycle', 'bird', 'boat',
+#           'bottle', 'bus', 'car', 'cat', 'chair',
+#           'cow', 'diningtable', 'dog', 'horse',
+#           'motorbike', 'person', 'pottedplant',
+#           'sheep', 'sofa', 'train', 'tvmonitor')
+
+CLASSES = ('__background__', 'person')
 
 NETS = {'vgg16': ('VGG16',
                   'VGG16_faster_rcnn_final.caffemodel'),
@@ -117,10 +119,23 @@ if __name__ == '__main__':
 
     args = parse_args()
 
-    prototxt = os.path.join(cfg.MODELS_DIR, NETS[args.demo_net][0],
-                            'faster_rcnn_alt_opt', 'faster_rcnn_test.pt')
-    caffemodel = os.path.join(cfg.DATA_DIR, 'faster_rcnn_models',
-                              NETS[args.demo_net][1])
+    #prototxt = os.path.join(cfg.MODELS_DIR, NETS[args.demo_net][0],
+    #                        'faster_rcnn_alt_opt', 'faster_rcnn_test.pt')
+    #caffemodel = os.path.join(cfg.DATA_DIR, 'faster_rcnn_models',
+    #                          NETS[args.demo_net][1])
+
+    #print 'prototxt', prototxt
+
+    #-------------VGG16------------------------
+    #prototxt = '/home/oleksandr/FasterRCNN/py-faster-rcnn/models/INRIA_Person/VGG16/faster_rcnn_alt_opt/faster_rcnn_test.pt'
+    #caffemodel = '/home/oleksandr/FasterRCNN/py-faster-rcnn/output/default/train/vgg16_fast_rcnn_stage2_iter_40000.caffemodel'
+
+    #----------------GOOGLENET-----------------------
+    prototxt = '/home/oleksandr/FasterRCNN/py-faster-rcnn/models/INRIA_Person/GOOGLENET/bvlc_googlenet/faster_rcnn_test.pt'
+    caffemodel = '/home/oleksandr/FasterRCNN/py-faster-rcnn/output/default/train/INRIA_Person/GOOGLENET_faster_rcnn_final.caffemodel'
+
+
+    #caffemodel = '/home/oleksandr/FasterRCNN/py-faster-rcnn/output/default/train/INRIA_Person_faster_rcnn_final.caffemodel'
 
     if not os.path.isfile(caffemodel):
         raise IOError(('{:s} not found.\nDid you run ./data/script/'
@@ -141,8 +156,11 @@ if __name__ == '__main__':
     for i in xrange(2):
         _, _= im_detect(net, im)
 
-    im_names = ['000456.jpg', '000542.jpg', '001150.jpg',
-                '001763.jpg', '004545.jpg']
+    #im_names = ['00001.jpg','00002.jpg', '00003.jpg','00004.jpg', '00005.jpg','00006.jpg',
+    #            '00007.jpg','00008.jpg', '00009.jpg','00010.jpg', '00011.jpg','00012.jpg']
+
+    im_names = ['crop001001a.png','crop001001b.png', 'crop001002a.png', 'crop001002b.png',
+                'crop001003b.png', 'crop001003c.png']
     for im_name in im_names:
         print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
         print 'Demo for data/demo/{}'.format(im_name)
